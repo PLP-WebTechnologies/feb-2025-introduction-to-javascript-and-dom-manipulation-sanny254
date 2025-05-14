@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #content-box {
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .special {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .new-element {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Webpage</h1>
+    
+    <div id="content-box">
+        <p id="text-element">Click the buttons below to change this text!</p>
+    </div>
+    
+    <div>
+        <button id="change-text-btn">Change Text</button>
+        <button id="change-style-btn">Change Style</button>
+        <button id="toggle-element-btn">Toggle Element</button>
+    </div>
+    
+    <script>
+        // Get DOM elements
+        const textElement = document.getElementById('text-element');
+        const contentBox = document.getElementById('content-box');
+        const changeTextBtn = document.getElementById('change-text-btn');
+        const changeStyleBtn = document.getElementById('change-style-btn');
+        const toggleElementBtn = document.getElementById('toggle-element-btn');
+        
+        // Array of possible texts
+        const texts = [
+            "You've changed the text!",
+            "JavaScript is fun!",
+            "Dynamic content is cool!",
+            "Web development rocks!"
+        ];
+        
+        // Change text content
+        changeTextBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * texts.length);
+            textElement.textContent = texts[randomIndex];
+        });
+        
+        // Change CSS styles
+        changeStyleBtn.addEventListener('click', () => {
+            // Toggle special class on text element
+            textElement.classList.toggle('special');
+            
+            // Change background color randomly
+            const colors = ['#f8f9fa', '#fff3cd', '#d4edda', '#f8d7da'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            contentBox.style.backgroundColor = randomColor;
+            
+            // Rotate border color
+            const borderColors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12'];
+            const currentIndex = borderColors.indexOf(contentBox.style.borderColor || '#3498db');
+            const nextIndex = (currentIndex + 1) % borderColors.length;
+            contentBox.style.borderColor = borderColors[nextIndex];
+        });
+        
+        // Toggle element
+        toggleElementBtn.addEventListener('click', () => {
+            const existingElement = document.querySelector('.new-element');
+            
+            if (existingElement) {
+                existingElement.remove();
+                toggleElementBtn.textContent = 'Add Element';
+            } else {
+                const newElement = document.createElement('div');
+                newElement.className = 'new-element';
+                newElement.textContent = 'This is a dynamically added element!';
+                contentBox.appendChild(newElement);
+                toggleElementBtn.textContent = 'Remove Element';
+            }
+        });
+    </script>
+</body>
+</html>
